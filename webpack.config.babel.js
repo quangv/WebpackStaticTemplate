@@ -7,6 +7,10 @@ var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 var data = require('./app/data.js')
+var Main = require('./app/components/Main.jsx');
+var fs = require('fs');
+var React = require('react');
+import ReactDOMServer from 'react-dom/server';
 
 var pkg = require('./package.json');
 
@@ -51,10 +55,15 @@ var common = {
   plugins: [
 
     new HtmlwebpackPlugin({
-      title: 'Static app'
+      title: 'Static app',
+      templateContent: renderJSX(
+        fs.readFileSync(path.join(__dirname, 'templates/index.tpl'), 'utf8'),
+        {
+          app: ReactDOMServer.renderToString(<Main />)
+        })
     })//,
 
-    //new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
+    //new StaticSiteGeneratorPlugin('bundle.js', data.routes, , { locals... })
   ]
 };
 
@@ -138,4 +147,14 @@ if(TARGET === 'build' || TARGET === 'stats') {
       })
     ]
   });
+}
+
+function renderJSX(template, replacements) {
+  return function(templateParams, compilation) {
+    return template.replace(/%(\w*)%/g, function(match) {
+      var key = match.slice(1, -1);
+
+      return replacements[key] ? replacements[key] : match;
+    });
+  }
 }

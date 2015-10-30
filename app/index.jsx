@@ -8,11 +8,10 @@ import { Router, RoutingContext, match } from 'react-router';
 
 import routes from './routes.jsx'
 
-
 // Client render (optional):
 if (typeof document !== 'undefined') {
   const history = createHistory();
-  const outlet = document.createElement('div');
+  const outlet = document.getElementById('app');
 
   document.body.appendChild(outlet);
 
@@ -26,7 +25,7 @@ export default (locals, callback) => {
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     var html = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
-    callback(null, '<!DOCTYPE html>' + html);
+    callback(null, html);
   });
 };
 

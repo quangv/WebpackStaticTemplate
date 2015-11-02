@@ -11,7 +11,8 @@ import routes from './routes.jsx'
 // Client render (optional):
 if (typeof document !== 'undefined') {
   const history = createHistory();
-  const outlet = document.getElementById('app');
+  //const outlet = document.getElementById('app');
+  const outlet = document.createElement('div');
 
   document.body.appendChild(outlet);
 

@@ -115,7 +115,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
     },
 
     plugins: [
-      new Clean(['build']),
+      //new Clean(['build']),  // very dangerous, until it's updated see https://github.com/johnagan/clean-webpack-plugin/pull/5
 
       new ExtractTextPlugin('styles.[hash].css'),
 

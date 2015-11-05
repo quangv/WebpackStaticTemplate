@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "webpack-dev-server --progress --colors",
+    "start": "webpack --watch --progress --colors",
+    "build": "webpack -p --progress --colors",
     "stats": "webpack --profile --json > stats.json",
-    "start": "webpack-dev-server",
-    "build": "webpack",
     "lint": "eslint . --ext .js --ext .jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

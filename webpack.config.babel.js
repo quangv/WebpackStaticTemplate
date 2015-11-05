@@ -1,5 +1,4 @@
 var path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
@@ -32,7 +31,7 @@ var common = {
   module: {
     preLoaders: [
       {
-        test: /\.js?$/,
+        test: /\.js$/,
         loaders: ['eslint'],
         // define an include so we check just the files we need
         include: APP_PATH
@@ -49,11 +48,6 @@ var common = {
   },
 
   plugins: [
-
-    new HtmlwebpackPlugin({
-      title: 'Static app'
-    })//,
-
     //new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
   ]
 };

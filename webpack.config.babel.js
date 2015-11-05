@@ -56,7 +56,17 @@ var common = {
   ]
 };
 
-if(TARGET === 'start' || !TARGET) {
+if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
+  var plugins = [
+    new webpack.HotModuleReplacementPlugin()
+  ];
+
+  if(TARGET === 'server'){
+    plugins.push(new OpenBrowserPlugin({
+      url: 'http://localhost:3000'
+    }));
+  }
+
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
@@ -64,7 +74,9 @@ if(TARGET === 'start' || !TARGET) {
       hot: true,
       inline: true,
       progress: true,
-      port: 3000
+      host: '0.0.0.0',
+      port: 3000,
+      contentBase: './build'
     },
 
     module: {
@@ -77,14 +89,8 @@ if(TARGET === 'start' || !TARGET) {
       ]
     },
 
-    plugins: [
+    plugins: plugins
 
-      new OpenBrowserPlugin({
-        url: 'http://localhost:3000'
-      }),
-
-      new webpack.HotModuleReplacementPlugin()
-    ]
   });
 }
 

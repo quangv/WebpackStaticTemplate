@@ -25,6 +25,7 @@
     "eslint-loader": "^1.1.0",
     "eslint-plugin-react": "^3.6.3",
     "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.4",
     "node-sass": "^3.4.1",
     "open-browser-webpack-plugin": "0.0.1",
     "react-transform-hmr": "^1.0.1",

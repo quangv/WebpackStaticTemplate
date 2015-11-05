@@ -1,3 +1,4 @@
+require('file?name=index.html!../templates/index.html');  // build index.html
 require('./main.scss');
 
 import React from 'react';
@@ -11,8 +12,7 @@ import routes from './routes.jsx'
 // Client render (optional):
 if (typeof document !== 'undefined') {
   const history = createHistory();
-  //const outlet = document.getElementById('app');
-  const outlet = document.createElement('div');
+  const outlet = document.getElementById('app');
 
   document.body.appendChild(outlet);
 
@@ -20,6 +20,7 @@ if (typeof document !== 'undefined') {
 }
 
 // Exported static site renderer:
+/*
 export default (locals, callback) => {
   const history = createMemoryHistory();
   const location = history.createLocation(locals.path);
@@ -29,6 +30,7 @@ export default (locals, callback) => {
     callback(null, html);
   });
 };
+*/
 
 
 

@@ -56,14 +56,13 @@ var common = {
   },
 
   plugins: [
-    //new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
   ]
 };
 
 if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
   var plugins = [
-    new webpack.HotModuleReplacementPlugin(),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
+    new webpack.HotModuleReplacementPlugin()
   ];
 
   if(TARGET === 'server'){
@@ -94,7 +93,21 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
   });
 }
 
-if(TARGET === 'build' || TARGET === 'stats') {
+if(TARGET === 'build') {  // `webpack -p` already minifies
+
+  module.exports = merge(common, {
+    plugins: [
+      new Clean(['build']),  // be careful, very dangerous, until it's updated see https://github.com/johnagan/clean-webpack-plugin/pull/5
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    ]
+  });
+
+}else if(TARGET === 'build' || TARGET === 'stats') {
+
   module.exports = merge(common, {
     entry: {
       app: APP_PATH,
@@ -119,7 +132,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
     },
 
     plugins: [
-      //new Clean(['build']),  // very dangerous, until it's updated see https://github.com/johnagan/clean-webpack-plugin/pull/5
+      new Clean(['build']),  // be careful, very dangerous, until it's updated see https://github.com/johnagan/clean-webpack-plugin/pull/5
 
       new ExtractTextPlugin('styles.[hash].css'),
 

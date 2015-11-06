@@ -67,6 +67,11 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
     }));
   }
 
+  if(TARGET === 'start'){
+    // be careful, very dangerous. Update this module once this PR gets merged in. https://github.com/johnagan/clean-webpack-plugin/pull/5
+    plugins.push(new Clean(['build']));
+  }
+
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {

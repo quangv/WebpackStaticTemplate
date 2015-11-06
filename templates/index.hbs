@@ -7,6 +7,10 @@
 </head>
 <body>
   <div id="app">{{{ appCode }}}</div>
-  <script src="bundle.js"></script>
+  <script src="/bundle.js"></script>
+
+  {{#if isDevServer}}
+    <script src="/webpack-dev-server.js"></script>
+  {{/if}}
 </body>
 </html>

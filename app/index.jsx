@@ -27,6 +27,7 @@ module.exports = (locals, callback) => {
     callback(null, template({
       title: locals.title,
       css: css,
+      isDevServer: locals.npmMode == 'server',
       appCode: ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
     }))
   })

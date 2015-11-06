@@ -67,6 +67,7 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
   ];
 
   if(TARGET === 'server'){
+    data.npmMode = 'server';
     plugins.push(new OpenBrowserPlugin({
       url: 'http://localhost:3000'
     }));
@@ -81,8 +82,7 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
     devtool: 'eval-source-map',
     devServer: {
       historyApiFallback: true,
-      hot: true,
-      //inline: true,
+      //hot: true,  // auto-reload seems to work better without this
       progress: true,
       host: '0.0.0.0',
       port: 3000,

@@ -19,7 +19,7 @@ process.env.BABEL_ENV = TARGET;
 var common = {
   entry: APP_PATH,
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.hbs']
   },
 
   output: {
@@ -40,6 +40,10 @@ var common = {
 
     loaders: [
       {
+        test: /\.hbs$/,
+        loader: 'handlebars-loader'
+      },
+      {
         test: /\.jsx?$/,
         loader: 'babel',
         include: APP_PATH,
@@ -58,7 +62,8 @@ var common = {
 
 if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
   var plugins = [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes, data)
   ];
 
   if(TARGET === 'server'){
@@ -77,7 +82,7 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
     devServer: {
       historyApiFallback: true,
       hot: true,
-      inline: true,
+      //inline: true,
       progress: true,
       host: '0.0.0.0',
       port: 3000,

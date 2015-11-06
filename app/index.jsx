@@ -1,5 +1,5 @@
 //require('file?name=index.html!../templates/index.html');  // build index.html
-//require('./main.scss');
+const css = require('!css!sass!./main.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,6 +26,7 @@ module.exports = (locals, callback) => {
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     callback(null, template({
       title: locals.title,
+      css: css,
       appCode: ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
     }))
   })

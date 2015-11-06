@@ -19,7 +19,7 @@ process.env.BABEL_ENV = TARGET;
 var common = {
   entry: APP_PATH,
   resolve: {
-    extensions: ['', '.js', '.jsx', '.hbs']
+    extensions: ['', '.js', '.jsx', '.hbs', '.scss']
   },
 
   output: {
@@ -87,16 +87,6 @@ if(TARGET === 'start' || TARGET === 'server' || !TARGET) {
       host: '0.0.0.0',
       port: 3000,
       contentBase: './build'
-    },
-
-    module: {
-      loaders: [
-        {
-          test: /\.scss$/,
-          loaders: ['style', 'css', 'sass'],
-          include: APP_PATH
-        }
-      ]
     },
 
     plugins: plugins
